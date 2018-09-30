@@ -27,9 +27,15 @@ public class LCA<Key extends Comparable<Key>, Value> {
     {
     	if(a.equals(b))
     	{
-    		
+    		if(this.contains(a))
+    			return a;
+    		else
+    			return null;
     	}
-    	return lca(this.root, a, b);
+    	else
+    	{
+    		return lca(this.root, a, b);
+    	}
     }
  
     
