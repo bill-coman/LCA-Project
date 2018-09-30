@@ -21,6 +21,20 @@ public class LCA<Key extends Comparable<Key>, Value> {
             this.N = N;
         }
     }
+    public int size() 
+    { 
+    	return size(root); 
+    }
+
+    // return number of key-value pairs in BST rooted from the node x
+    private int size(Node x) 
+    {
+        if (x == null) 
+        	return 0;
+        else 
+        	return x.N;
+    }
+    
     
     public boolean contains(Key key) 
     {
@@ -83,7 +97,7 @@ public class LCA<Key extends Comparable<Key>, Value> {
         {
         	x.val   = val;
         }
-        x.N = 1 + x.left.N + x.right.N;
+        x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
 
