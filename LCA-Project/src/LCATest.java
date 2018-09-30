@@ -56,6 +56,33 @@ public class LCATest {
 	     
 	     
 	     a = 7;
+	     b= 3;
+	     c=8;
+	     assertEquals("lca of 3 and 8 is root", a, lca.LwstCmnAnc(b, c));
+	     
+	     
+	     a = 3;
+	     b= 1;
+	     c=6;
+	     assertEquals("lca of 1 and 6 is 3", a, lca.LwstCmnAnc(b, c));
+	     
+	     a = 3;
+	     b= 2;
+	     c=5;
+	     assertEquals("lca of 2 and 5 is 3", a, lca.LwstCmnAnc(b, c));
+	     
+	     a = 7;
+	     b= 2;
+	     c=8;
+	     assertEquals("lca of 2 and 8 is 7", a, lca.LwstCmnAnc(b, c));
+	     
+	     a = 7;
+	     b= 5;
+	     c=8;
+	     assertEquals("lca of 5 and 8 is 7", a, lca.LwstCmnAnc(b, c));
+	     
+	     
+	     a = 7;
 	     b= 7;
 	     c=7;
 	     assertEquals("lca of root is root", a, lca.LwstCmnAnc(b, c));
