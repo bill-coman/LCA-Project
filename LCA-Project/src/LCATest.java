@@ -36,7 +36,25 @@ public class LCATest {
 
 	        lca.put(4, 4);
 	        assertEquals("Put makes an element exist", true, lca.contains(4));
-	    }
+	    }     
+	 
+	 @Test
+	 public void testLCA() {
+		 LCA<Integer, Integer> lca = new LCA<Integer, Integer>();
+		 lca.put(7, 7);   //        _7_
+	     lca.put(8, 8);   //      /     \
+	     lca.put(3, 3);   //    _3_      8
+	     lca.put(1, 1);   //  /     \
+	     lca.put(2, 2);   // 1       6
+	     lca.put(6, 6);   //  \     /
+	     lca.put(4, 4);   //   2   4
+	     lca.put(5, 5);   //        \
+	                      //         5
+	 }
+	     
+     
+	 
+	 
 
 	
 }
