@@ -50,6 +50,11 @@ public class LCATest {
 	     lca.put(4, 4);   //   2   4
 	     lca.put(5, 5);   //        \
 	                      //         5
+	     Integer a;
+	     a = 3;
+	     assertEquals("lca of same keys is that key", a, lca.LwstCmnAnc(3, 3));
+	     
+	     
 	 }
 	     
 	
