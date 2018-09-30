@@ -60,6 +60,16 @@ public class LCATest {
 	     c=7;
 	     assertEquals("lca of root is root", a, lca.LwstCmnAnc(b, c));
 	     
+	     a = 7;
+	     b= 1;
+	     c=7;
+	     assertEquals("lca of root and left key is root", a, lca.LwstCmnAnc(b, c));
+	     
+	     a = 7;
+	     b= 7;
+	     c=1;
+	     assertEquals("lca of root and right key is root", a, lca.LwstCmnAnc(b, c));
+	     
 	     a = 3;
 	     b= 3;
 	     c=3;
