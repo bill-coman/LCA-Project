@@ -25,16 +25,21 @@ public class LCA<Key extends Comparable<Key>, Value> {
     
     public Key LwstCmnAnc(Key a, Key b)
     {
-    	if(a.equals(b))
+    	//if keys aren't in tree return null
+    	if(!this.contains(a) ||!this.contains(b))
     	{
-    		if(this.contains(a))
-    			return a;
-    		else
-    			return null;
+    		return null;
     	}
     	else
     	{
-    		return lca(this.root, a, b);
+    		if(a.equals(b))
+        	{
+    			return a;
+        	}	
+    		else
+        	{
+        		return lca(this.root, a, b);
+        	}
     	}
     }
  

@@ -51,11 +51,29 @@ public class LCATest {
 	     lca.put(5, 5);   //        \
 	                      //         5
 	     Integer a;
-	     a = 3;
-	     assertEquals("lca of same keys is that key", a, lca.LwstCmnAnc(3, 3));
+	     Integer b;
+	     Integer c;
 	     
-	     a = -1;
-	     assertNull("lca of same keys is null if key isnt contained in the tree", lca.LwstCmnAnc(a,a));
+	     
+	     a = 3;
+	     b= 3;
+	     c=3;
+	     assertEquals("lca of same keys is that key", a, lca.LwstCmnAnc(b, c));
+	     
+	     
+	     b= -1;
+	     c=-1;
+	     assertNull("lca of same keys is null if key isnt contained in the tree", lca.LwstCmnAnc(b, c));
+	     
+	     
+	     b= -1;
+	     c=3;
+	     assertNull("lca is null if first key isnt contained in the tree", lca.LwstCmnAnc(b,c));
+	     
+	     a = 3;
+	     b= 3;
+	     c=-1;
+	     assertNull("lca is null if second key isnt contained in the tree", lca.LwstCmnAnc(b,c));
 	 }
 	     
 	
