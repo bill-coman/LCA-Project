@@ -52,8 +52,7 @@ public class LCATest {
 	                      //         5
 	 }
 	     
-     
-	 
+	
 	 
 
 	

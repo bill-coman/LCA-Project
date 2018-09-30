@@ -21,6 +21,24 @@ public class LCA<Key extends Comparable<Key>, Value> {
             this.N = N;
         }
     }
+    
+    
+    public Key LwstCmnAnc(Key a, Key b)
+    {
+    	if(a.equals(b))
+    	{
+    		
+    	}
+    	return lca(this.root, a, b);
+    }
+ 
+    
+    private Key lca(Node x, Key a, Key b)
+    {
+    	return null;
+    }
+    
+    
     public int size() 
     { 
     	return size(root); 
