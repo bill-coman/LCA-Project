@@ -46,7 +46,26 @@ public class LCA<Key extends Comparable<Key>, Value> {
     
     private Key lca(Node x, Key a, Key b)
     {
-    	return null;
+    	
+    	int cmpa = a.compareTo(x.key);
+    	int cmpb = b.compareTo(x.key);
+    	
+    	//either both are < and we go left
+    	if (cmpa < 0 && cmpb < 0) 
+		{
+			return lca(x.left, a, b);
+		}
+    	//both are > and we go right
+        else if(cmpa > 0 && cmpb > 0)
+        {
+        	return lca(x.right, a, b);
+        }
+    	//this is the point the paths first diverge and is the lowest ancestor
+    	//all other conditions are controlled to this point so only successful runs get this far
+        else
+        {
+        	return x.key;
+        }
     }
     
     

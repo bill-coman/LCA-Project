@@ -55,6 +55,11 @@ public class LCATest {
 	     Integer c;
 	     
 	     
+	     a = 7;
+	     b= 7;
+	     c=7;
+	     assertEquals("lca of root is root", a, lca.LwstCmnAnc(b, c));
+	     
 	     a = 3;
 	     b= 3;
 	     c=3;
