@@ -54,7 +54,8 @@ public class LCATest {
 	     a = 3;
 	     assertEquals("lca of same keys is that key", a, lca.LwstCmnAnc(3, 3));
 	     
-	     
+	     a = -1;
+	     assertNull("lca of same keys is null if key isnt contained in the tree", lca.LwstCmnAnc(a,a));
 	 }
 	     
 	
