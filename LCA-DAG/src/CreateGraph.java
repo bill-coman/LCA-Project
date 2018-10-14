@@ -195,4 +195,14 @@ public class CreateGraph {
         return x;
       }
     }
+    //runs all lines of code so we can test the graph creation
+    public int[] returnLevels()
+    {
+      int[] levels = new int[this.totalNodes];
+      for(int i = 0; i < this.totalNodes; i++)
+      {
+        levels[i] = graph[i].level;
+      }
+      return levels;
+    }
 }
