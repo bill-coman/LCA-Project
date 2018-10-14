@@ -125,6 +125,74 @@ public class CreateGraph {
       scanner.close();
     } 
 
+    }
+  
+      private String readFile(String filename) throws java.io.IOException
+  {
+    String fileContents = "";
+    File file = new File(filename);
+    if(!file.exists())
+      throw new java.io.IOException();
+    In in = new In(file);
+    fileContents = in.readAll();
+    return fileContents;
+  }
+  
+    public void put(int parent, int id)
+    {
+      foundParent = false;
+      if(null == this.root)
+      {
+        System.out.println("Empty graph therefore no parent" + "\nNode (" + parent + ") added as root of graph");
+        root = new Node(parent, 0);
+        graph[this.root.id] = this.root;
+      }
+      root = put(root, parent, id);
       
+      
+//      String output = (foundParent == true)?"Complete":"Parent ID  (" + parent + ") Not Found";
+//      System.out.println(output);
+      
+      
+      
+      foundParent = false;
+    }
+    
+    
+    private Node put(Node x, int parent, int child)
+    {
+      //use a global boolean to check when you have found the parent 
+      Node dummy = null;
+      if(x.id == parent)
+      {
+        foundParent = true;
+        int level = x.level+1;
+        
+        if(graph[child] != null)
+        {
+          dummy = graph[child];
+          int altLevel = dummy.level;
+          level = (level < altLevel)?altLevel:level;
+        }
+        else
+        {
+          dummy = new Node(child, level);
+          graph[dummy.id] = dummy;
+        }
+        dummy.level = level;
+        x.children.add(dummy);
+        return x;
+      }
+      else
+      {
+        for(int i = 0; i < x.children.size();i++)
+        {
+          dummy = x.children.get(i);
+          dummy = put(dummy, parent, child);
+          if(foundParent)
+            break;
+        }
+        return x;
+      }
     }
 }
