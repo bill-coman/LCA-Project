@@ -205,4 +205,71 @@ public class CreateGraph {
       }
       return levels;
     }
+
+
+
+
+    public int LcA(int a, int b) {
+      
+      aAncestors = new boolean[this.totalNodes];
+  bAncestors = new boolean[this.totalNodes];
+      
+      this.root = ancestors(root, a, aAncestors);
+      this.root = ancestors(root, b, bAncestors);
+      
+      ArrayList<Node> CAs = new ArrayList<Node>();
+      int i = 0;
+      while(i < this.totalNodes)
+      {
+        if(aAncestors[i] == true  && bAncestors[i] == true)
+        {
+          CAs.add(graph[i]);
+        }
+        i++;
+      }
+      
+      
+      Node dummy;
+      int lca = 0;
+      i = 0;
+      while(i < CAs.size())
+      {
+        dummy = CAs.get(i);
+        lca = (dummy.level > graph[lca].level)? dummy.id : lca;
+        i++;
+      }
+      return lca;
+      
+    }
+    
+    private Node ancestors(Node x, int id, boolean[] ancestors)
+    {
+      Node dummy;
+      if(x.id == id || x.level > graph[id].level)
+      {
+        timeToAdd = (x.id == id)?true:false;
+        return x;
+      }
+      else
+      {
+        boolean yeye = false;
+        for(int i = 0; i < x.children.size();i++)
+        {
+          timeToAdd = false;
+          dummy = x.children.get(i);
+          dummy = ancestors(dummy, id, ancestors);
+          if(timeToAdd)
+          {
+            yeye = true;
+            ancestors[x.id] = true;
+          }
+          
+        }
+        if(yeye)
+          timeToAdd = true;
+        return x;
+      }
+    }
+    
+
 }
