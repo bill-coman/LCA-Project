@@ -72,3 +72,17 @@ for(i in 1:n){
  print(paste("|",i,"|   ",myRepos$name[i]," -> Created: ",myRepos$created_at[i],sep=""))
 }
 #COMPLETE
+
+#Confirm Ability To Add a differnet user to the Data.frame
+#NB variable RH holds the data
+ # Use API
+RH = GET("https://api.github.com/users/RoryDH/followers?per_page=100;", gtoken)
+ # Take action on http error
+stop_for_status(RH)
+ # Extract content from a request
+ex = content(RH)
+ # Convert to a data.frame
+gitDF = jsonlite::fromJSON(jsonlite::toJSON(ex))
+ # Subset data.frame
+gitDF $login
+#COMPLETE COMPLETE
