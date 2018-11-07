@@ -41,3 +41,34 @@ gitDF[gitDF$full_name == "bill-coman/LCA-Project", "created_at"]
  # The code above was sourced from Michael Galarnyk's blog, found at:
 # https://towardsdatascience.com/accessing-data-from-github-api-using-r-3633fb62cb08
 
+#improve structure of data collection...
+
+#Profile -> bill-coman
+myProfile = fromJSON("https://api.github.com/users/bill-coman")
+myProfile$followers
+myProfile$public_repos
+
+
+#FURTHER DETAILS RE MY FOLLOWERS
+
+myFollowers = fromJSON("https://api.github.com/users/bill-coman/followers")
+n = length(myFollowers$login)
+
+for(i in 1:n){
+ if (i == 1){
+    print(paste("|   MY FOLLOWERS:  ( Total = ",n,")   |"))  
+ }
+ print(paste("|",i,"|   ",myFollowers$login[i], sep=""))
+}
+
+#FURTHER DETAILS RE MY REPOS
+myRepos = fromJSON("https://api.github.com/users/bill-coman/repos")
+n = length(myRepos$name)
+
+for(i in 1:n){
+ if (i == 1){
+    print(paste("|   MY REPOS:  ( Total = ",n,")   |"))  
+ }
+ print(paste("|",i,"|   ",myRepos$name[i]," -> Created: ",myRepos$created_at[i],sep=""))
+}
+#COMPLETE
