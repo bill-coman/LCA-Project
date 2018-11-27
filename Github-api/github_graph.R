@@ -102,8 +102,8 @@ usersFound = c(ids)
 #vector to collect unique users
 users = c()
 
-#dataframe to store info of unique
-usersINFORMATION = data.frame(
+#dataframe to store info of unique users
+userDF = data.frame(
   
   user = integer(),
   follows = integer(),
@@ -113,7 +113,7 @@ usersINFORMATION = data.frame(
   
 )
 
-#successfully iterates through a list of users
+#successfully collects a list of users who follow RoryDH
 for(i in 1:length(usersFound))
 {
   #Retrieve a list of individual users 
@@ -125,7 +125,42 @@ for(i in 1:length(usersFound))
   
   followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
   followingLogin = followingDF$login
- }
+
+  #next step is to let each of these users act as the source user
+    for (j in 1:length(followingLogin))
+    {
+      #Check user hasnt already been visited
+      if (is.element(followingLogin[j], users) == FALSE)
+      {
+        
+        users[length(users) + 1] = followingLogin[j]
+        
+        #api process
+        followingUrl2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
+        following2 = GET(followingUrl2, gtoken)
+        followingContent2 = content(following2)
+        followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followingContent2))
+        
+        #Retrieve each users inputs for userDF
+        followingNumber = followingDF2$following
+        followersNumber = followingDF2$followers
+        reposNumber = followingDF2$public_repos
+        yearCreated = substr(followingDF2$created_at, start = 1, stop = 4)
+        
+        #Add users data to a new row in the data.frame
+        userDF[nrow(userDF) + 1, ] = c(followingLogin[j], followingNumber, followersNumber, reposNumber, yearCreated)
+        
+      }
+      next
+    }
+    if(length(users) > 400)
+    {
+      break
+    }
+  next
+}
+userDF
+#COMPLETE
 
 
 
