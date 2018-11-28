@@ -5,6 +5,11 @@ library(httpuv)
 install.packages("httr")
 library(httr)
 
+install.packages("plotly")
+
+require(devtools)
+library(plotly)
+
  # Can be github, linkedin etc depending on application
 oauth_endpoints("github")
 
@@ -117,38 +122,38 @@ userDF = data.frame(
 for(i in 1:length(usersFound))
 {
   #Retrieve a list of individual users 
-  followingURL = paste("https://api.github.com/users/", usersFound[i], "/following", sep = "")
-  followingRequest = GET(followingURL, gtoken)
-  followingContent = content(followingRequest)
+  followsURL = paste("https://api.github.com/users/", usersFound[i], "/following", sep = "")
+  followsRequest = GET(followsURL, gtoken)
+  followsContent = content(followsRequest)
   
   
-  
-  followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
-  followingLogin = followingDF$login
+  #sets a df for current user for the next loop
+  followsDF = jsonlite::fromJSON(jsonlite::toJSON(followsContent))
+  followsLogin = followsDF$login
 
   #next step is to let each of these users act as the source user
-    for (j in 1:length(followingLogin))
+    for (j in 1:length(followsLogin))
     {
       #Check user hasnt already been visited
-      if (is.element(followingLogin[j], users) == FALSE)
+      if (is.element(followsLogin[j], users) == FALSE)
       {
         
-        users[length(users) + 1] = followingLogin[j]
+        users[length(users) + 1] = followsLogin[j]
         
         #api process
-        followingUrl2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
-        following2 = GET(followingUrl2, gtoken)
-        followingContent2 = content(following2)
-        followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followingContent2))
+        followsUrl2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
+        follows2 = GET(followsUrl2, gtoken)
+        followsContent2 = content(follows2)
+        followsDF2 = jsonlite::fromJSON(jsonlite::toJSON(followsContent2))
         
         #Retrieve each users inputs for userDF
-        followingNumber = followingDF2$following
-        followersNumber = followingDF2$followers
-        reposNumber = followingDF2$public_repos
-        yearCreated = substr(followingDF2$created_at, start = 1, stop = 4)
+        followsNumber = followsDF2$following
+        followedByNumber = followsDF2$followers
+        reposNumber = followsDF2$public_repos
+        yearCreated = substr(followsDF2$created_at, start = 1, stop = 4)
         
         #Add users data to a new row in the data.frame
-        userDF[nrow(userDF) + 1, ] = c(followingLogin[j], followingNumber, followersNumber, reposNumber, yearCreated)
+        userDF[nrow(userDF) + 1, ] = c(followsLogin[j], followsNumber, followedByNumber, reposNumber, yearCreated)
         
       }
       next
@@ -163,11 +168,18 @@ userDF
 #COMPLETE
 
 
+#Link R to plotly. This creates online interactive graphs based on the d3js library
+Sys.setenv("plotly_username"="bcoman")
+Sys.setenv("plotly_api_key"="gCjS0hya48xJXGRfyO9c")
 
+#best place to start is followers vs repos  - see if it works
+aPlot = plot_ly(data = userDF, x = ~repos, y = ~followedBy, 
+                  text = ~paste("Followers: ", followedBy, "<br>Repositories: ", 
+                                repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
+aPlot 
 
-
-
-
+api_create(plot1, filename = "Followers vs Repositories by Date")
+#can be found at https://plot.ly/~bcoman/1/#/
 
 
 
