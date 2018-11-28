@@ -178,11 +178,18 @@ aPlot = plot_ly(data = userDF, x = ~repos, y = ~followedBy,
                                 repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
 aPlot 
 
-api_create(plot1, filename = "Followers vs Repositories by Date")
+api_create(aPlot, filename = "Followers vs Repositories by Date")
 #can be found at https://plot.ly/~bcoman/1/#/
 
 
+#logical next plot is followers vs followed by
+bPlot= plot_ly(data = userDF, x = ~follows, y = ~followedBy, 
+                 text = ~paste("Followers: ", followedBy, "<br>Following: ", 
+                               follows))
+bPlot
 
 
+api_create(bPlot, filename = "Followers vs Following")
+#can be found at https://plot.ly/~bcoman/3/#/
 
-
+#COMPLETE COMPLETE
